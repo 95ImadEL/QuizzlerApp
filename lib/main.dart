@@ -78,11 +78,8 @@ class _QuizPageState extends State<QuizPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 120.0),
+          padding: const EdgeInsets.symmetric(horizontal: 80.0),
           child: TextButton(
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.black, // Background Color
-            ),
             onPressed: () {
               setState(() {
                 quizBrain.reset();
