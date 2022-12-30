@@ -40,42 +40,31 @@ class _QuizPageState extends State<QuizPage> {
     //The user picked true
     bool correctAnswer = quizBrain.getCorrectAnswer();
     setState(() {
-      if (userPickedAnswer == correctAnswer) {
-        scoreKeeper.add(Icon(
-          Icons.check,
-          color: Colors.green,
-        ));
-        quizBrain.updateScore();
-      } else {
-        scoreKeeper.add(Icon(
-          Icons.close,
-          color: Colors.red,
-        ));
+      if (quizBrain.isFinished() == false) {
+        if (userPickedAnswer == correctAnswer) {
+          scoreKeeper.add(Icon(
+            Icons.check,
+            color: Colors.green,
+          ));
+          quizBrain.updateScore();
+        } else {
+          scoreKeeper.add(Icon(
+            Icons.close,
+            color: Colors.red,
+          ));
+        }
       }
       if (quizBrain.isFinished() == true) {
         int finalScore = quizBrain.getFinalScore();
         int totalQuestion = quizBrain.getQuizLength();
         Alert(
           context: context,
-          type: AlertType.error,
           title: "Finished",
           desc:
-              "You've reached the end of the quiz. You got $finalScore/$totalQuestion",
-          buttons: [
-            DialogButton(
-              child: Text(
-                "Retry",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-                scoreKeeper.clear();
-              },
-              width: 120,
-            )
-          ],
+              "You've reached the end of the quiz. You got $finalScore/$totalQuestion \n "
+              "Tap retry to reload the quiz",
+          buttons: [],
         ).show();
-        quizBrain.reset();
       } else {
         quizBrain.nextQuestion();
       }
@@ -88,6 +77,35 @@ class _QuizPageState extends State<QuizPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 120.0),
+          child: TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.black, // Background Color
+            ),
+            onPressed: () {
+              setState(() {
+                quizBrain.reset();
+                scoreKeeper.clear();
+              });
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text(
+                  "Retry Quiz",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(width: 10),
+                Icon(
+                  Icons.repeat,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+          ),
+        ),
         Expanded(
           flex: 5,
           child: Padding(

@@ -56,7 +56,6 @@ class QuizBrain {
   void reset() {
     _questionNumber = 0;
     _numberOfCorrectAnswers = 0;
-    print(_questionNumber);
   }
 
   void updateScore() {
