@@ -57,12 +57,25 @@ class _QuizPageState extends State<QuizPage> {
         int totalQuestion = quizBrain.getQuizLength();
         Alert(
           context: context,
+          type: AlertType.error,
           title: "Finished",
           desc:
               "You've reached the end of the quiz. You got $finalScore/$totalQuestion",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "Retry",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+                scoreKeeper.clear();
+              },
+              width: 120,
+            )
+          ],
         ).show();
         quizBrain.reset();
-        scoreKeeper.clear();
       } else {
         quizBrain.nextQuestion();
       }
