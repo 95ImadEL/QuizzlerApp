@@ -107,7 +107,7 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ),
         Expanded(
-          flex: 5,
+          flex: 2,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Center(
